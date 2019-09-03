@@ -1,0 +1,115 @@
+import math
+
+
+def marginControl(text, margins):
+  #while the text list is not empty
+  #formula for left margin
+  line_len = 80 - (margins[0] * 12) - (margins[1] * 12)
+  print(len(text))
+  print(line_len)
+  for indent in range(1, math.ceil(len(text) / line_len) + 1):
+    # calculate the amount of spaces to indent 
+    line = " " * (margins[0] * 12)
+
+    if((indent * line_len) > len(text)):
+      line = line + text[(indent-1) * line_len: len(text)]
+      print(line)
+      return
+
+    # add the text to the line
+    line = line + text[(indent-1) * line_len : indent * line_len]
+
+    # print("Last slice: ", (indent-1) * line_len, indent * line_len)
+
+    # if the ind * line_len is greater than the actual length of the string, the len of the string replaces is
+
+    
+      
+    
+    # print(indent)
+
+    # print(indent)
+    # print(len(line))
+    print(line)
+
+# input file paths
+def openMarginsFile(path):
+
+    # open file and read from it
+    data = ""
+
+    # margins dictionary
+
+    with open(path, "r") as f:
+        # declares f as object
+        data = f.readlines()
+        # end of statement
+
+    # gets rid of the new line character in the index one
+    data[0] = data[0].replace("\n", "")
+
+    # read through each element in the array and get the margin sizes
+    margins_array = []  # [left, right]
+
+    for elem in data:
+        d = elem.split("=")
+        # if the margins are negative, then the program cannot run
+        if int(d[1]) < 0:
+            print("No negative Margins allowed!!")
+            return
+
+        # append margins into an array
+        margins_array.append(int(d[1]))
+
+    # print(margins_array)
+    return margins_array
+    #prints data as string
+
+
+def openTextTesterFile(path):
+
+    # open file and read from it
+    text = ""
+
+    # margins dictionary
+
+    with open(path, "r") as j:
+        # declares f as object
+        text = j.readlines()
+        # end of statement
+
+    # gets rid of the new line character in the index one
+    text[0] = text[0].replace("\n", "")
+
+    # print(text)
+
+    # read through each element in the array and get the margin sizes
+    return text
+
+
+""" 
+   margins_array = [] # [left, right]
+
+ for elem in data: 
+    d = elem.split("=")
+    # if the margins are negative, then the program cannot run  
+    if int(d[1]) < 0 :
+      print("No negative Margins allowed!!")
+      return 
+
+    # append margins into an array
+    margins_array.append(int(d[1]))
+
+  print(margins_array) 
+  return margins_array
+  #prints data as string
+path = 'margins.txt'
+margins = openMarginsFile(path)"""
+
+# RUNNER CODE
+path = 'margins.txt'
+input_text_path = 'texttester.txt'
+txt = openTextTesterFile(input_text_path)
+margins = openMarginsFile(path)
+
+marginControl(txt[0], margins)
